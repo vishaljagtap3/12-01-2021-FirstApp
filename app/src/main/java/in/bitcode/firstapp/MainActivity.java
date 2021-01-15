@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener{
 
     private TextView txt;
     private EditText edt;
@@ -29,14 +29,70 @@ public class MainActivity extends Activity {
 
         txt.setTextColor(Color.RED);
 
+        txt.setText(R.string.app_name);
+        int res = 200;
+        txt.setText(res + "");
+
         /*
         btn.setOnTouchListener( new BtnListener() );
         btn.setOnKeyListener(new BtnKeyListener());
         */
 
-        btn.setOnClickListener( new BtnClickListener() );
+        //btn.setOnClickListener( new BtnClickListener() );
+
+        //way 2
+        /*ViewClickListener viewClickListener = new ViewClickListener();
+        txt.setOnClickListener(viewClickListener);
+        btn.setOnClickListener(viewClickListener);*/
+
+        //way 3
+        /*txt.setOnClickListener(this);
+        btn.setOnClickListener(this);*/
+
+        txt.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        txt.setText("");
+                    }
+                }
+        );
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txt.setText(edt.getText().toString());
+            }
+        });
 
     }
+
+    @Override
+    public void onClick(View view) {
+        if (view == txt) {
+            txt.setText("");
+        }
+        if (view.getId() == R.id.btn) {
+            txt.setText(edt.getText().toString());
+            //finish();
+        }
+    }
+
+    //way 2
+    class ViewClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            if (view == txt) {
+                txt.setText("");
+            }
+            if (view.getId() == R.id.btn) {
+                txt.setText(edt.getText().toString());
+            }
+        }
+    }
+
+
+    /*
 
     private class TxtClickListener implements View.OnClickListener {
         @Override
@@ -67,6 +123,8 @@ public class MainActivity extends Activity {
             return false;
         }
     }
+
+     */
 
 
 }
