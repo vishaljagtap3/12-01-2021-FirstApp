@@ -3,6 +3,7 @@ package in.bitcode.firstapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -16,7 +17,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     private TextView txt;
     private EditText edt;
-    private Button btn;
+    private Button btn, btnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         txt = findViewById(R.id.txt);
         edt = findViewById(R.id.edt);
         btn = findViewById(R.id.btn);
+        btnNext = findViewById(R.id.btnNext);
 
         txt.setTextColor(Color.RED);
 
@@ -62,6 +64,15 @@ public class MainActivity extends Activity implements View.OnClickListener{
             @Override
             public void onClick(View view) {
                 txt.setText(edt.getText().toString());
+            }
+        });
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //code to start next activity
+                Intent intent = new Intent(MainActivity.this, NextAct.class);
+                startActivity(intent);
             }
         });
 
