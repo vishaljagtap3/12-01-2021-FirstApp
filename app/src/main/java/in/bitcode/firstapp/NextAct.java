@@ -1,7 +1,9 @@
 package in.bitcode.firstapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,7 +51,32 @@ public class NextAct extends Activity {
         container.addView(btnSetAndFinish);
 
         setContentView(container);
+
+        //Extract input
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        String name = bundle.getString("name", "NA");
+        int code = bundle.getInt("code", -1);
+
+        txtInfo.setText(name + " " + code);
+
+        btnSetAndFinish.setOnClickListener(new BtnSetAndFinishClickListener() );
+
     }
+
+    class BtnSetAndFinishClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+
+            Intent intent = new Intent();
+            intent.putExtra("result", edtInfo.getText().toString());
+            setResult(1, intent);
+            finish();
+        }
+    }
+
+
 }
 
 

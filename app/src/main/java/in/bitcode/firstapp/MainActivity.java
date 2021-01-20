@@ -72,7 +72,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
             public void onClick(View view) {
                 //code to start next activity
                 Intent intent = new Intent(MainActivity.this, NextAct.class);
-                startActivity(intent);
+
+                intent.putExtra("name", edt.getText().toString());
+                intent.putExtra("code", 1010);
+
+                //startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -137,7 +142,19 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
      */
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if(data != null) {
+            String result = data.getStringExtra("result");
+            txt.setText(result);
+        }
+
+        /*Bundle bundle = data.getExtras();
+        String result = bundle.getString("result");*/
+
+    }
 }
 
 
